@@ -1,6 +1,12 @@
 
 from pathlib import Path
 import boto3
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # by default it's 5 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),  # by default it's 1 day
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -106,6 +112,15 @@ AUTH_PASSWORD_VALIDATORS = [
 SOCIAL_AUTH_GITHUB_KEY = 'ea538a6523368076baa6'
 SOCIAL_AUTH_GITHUB_SECRET = 'a6ba001840a97c4d1840e57dbea4d80359d5becb'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'core:home'    # by default it is accounts/profile/
+SOCIAL_AUTH_LOGIN_ERROR_URL = 'core:home'    # if user doesn't authorize you to access their Github account
+
+# Google Login
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '413115499440-2ub4fcof2e4eba73e0ms1ahvfd3rvqv9.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'DOKB2Q7qrGh4jLRkPM_enuoC'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+]
+
 
 
 # Internationalization
@@ -153,6 +168,7 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',  # django's default authentication backend
 )
 
