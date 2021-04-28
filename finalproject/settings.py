@@ -16,7 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ah4ko#n=evymulru2vo^1t(rjm^^w0em2o&_9_t_^v#b&tc-v4'
+
+from decouple import config
+SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -109,14 +112,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Github Login
-SOCIAL_AUTH_GITHUB_KEY = 'ea538a6523368076baa6'
-SOCIAL_AUTH_GITHUB_SECRET = 'a6ba001840a97c4d1840e57dbea4d80359d5becb'
+SOCIAL_AUTH_GITHUB_KEY = config('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = config('SOCIAL_AUTH_GITHUB_SECRET')
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'core:home'    # by default it is accounts/profile/
 SOCIAL_AUTH_LOGIN_ERROR_URL = 'core:home'    # if user doesn't authorize you to access their Github account
 
 # Google Login
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '413115499440-2ub4fcof2e4eba73e0ms1ahvfd3rvqv9.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'DOKB2Q7qrGh4jLRkPM_enuoC'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
 ]
@@ -150,8 +153,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Arvan cloud storage
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = '4220836f-a0ad-466a-b49f-3a78401354ba'
-AWS_SECRET_ACCESS_KEY = '5cb2ea7dc04745d0e524abeb81d42474869d1f7fea04ac1d8c2860042ea058be'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'django-project'
 AWS_SERVICE_NAME = 's3'
 s3 = boto3.resource('s3')
